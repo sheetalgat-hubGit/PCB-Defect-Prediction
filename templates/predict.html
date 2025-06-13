@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PCB Quality Prediction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background-image: url('https://th.bing.com/th/id/OIP.76mp7u1KzaNt6Y6TsQbmDgHaFj?w=1379&h=1034&rs=1&pid=ImgDetMain');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #fff;
+        }
+
+        header.navbar {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 15px 30px;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+        }
+
+        .navbar-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 60px;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: 1.6em;
+            font-weight: bold;
+            color: #ffffff;
+        }
+
+        nav a {
+            color: #ffffff;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #90caf9;
+        }
+
+        .form-section {
+            background-color: rgba(0, 0, 0, 0.6);
+            margin: 60px auto;
+            padding: 40px 60px;
+            border-radius: 20px;
+            max-width: 800px;
+            animation: fadeInUp 1s ease-in-out;
+        }
+
+        .form-section h2 {
+            text-align: center;
+            font-size: 2em;
+            color: #90caf9;
+            margin-bottom: 30px;
+        }
+
+        label {
+            font-weight: 500;
+            display: block;
+            margin-top: 10px;
+        }
+
+        input[type="range"],
+        select {
+            width: 100%;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            padding: 6px;
+            border-radius: 10px;
+            border: none;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 30px;
+            background: linear-gradient(to right, #1e88e5, #42a5f5);
+            color: white;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+        }
+
+        input[type="submit"]:hover {
+            transform: scale(1.03);
+            background: linear-gradient(to right, #1565c0, #2196f3);
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            font-weight: 500;
+            margin-top: 60px;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <header class="navbar">
+        <div class="navbar-content">
+            <div class="logo">PCB Predictor</div>
+            <nav>
+                <a href="{{ url_for('home') }}">Home</a>
+                <a href="{{ url_for('result') }}">Result</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Form Section -->
+    <section class="form-section">
+        <h2>Enter PCB Parameters</h2>
+        <form method="POST" action="/predict">
+            {% for field in numeric_fields %}
+                <label>{{ field }}: {{ numeric_ranges[field][0] }} - {{ numeric_ranges[field][1] }}</label>
+                <input type="range" name="{{ field }}" min="{{ numeric_ranges[field][0] }}" max="{{ numeric_ranges[field][1] }}" step="0.1" required>
+            {% endfor %}
+
+            {% for field in categorical_fields %}
+                <label>{{ field }}</label>
+                <select name="{{ field }}" required>
+                    {% if field == 'Silkscreen Clarity' %}
+                        <option value="Clear">Clear</option>
+                        <option value="Blurred">Blurred</option>
+                    {% elif field in ['Solderability Test', 'Frequency Test Result'] %}
+                        <option value="Pass">Pass</option>
+                        <option value="Fail">Fail</option>
+                    {% elif field == 'Dimension Accuracy' %}
+                        <option value="Accurate">Accurate</option>
+                        <option value="Inaccurate">Inaccurate</option>
+                    {% elif field == 'Defect Type' %}
+                        <option value="None">None</option>
+                        <option value="Pad Missing">Pad Missing</option>
+                        <option value="Trace Break">Trace Break</option>
+                        <option value="Short Circuit">Short Circuit</option>
+                        <option value="Solder Bridge">Solder Bridge</option>
+                    {% endif %}
+                </select>
+            {% endfor %}
+            <input type="submit" value="Predict">
+        </form>
+    </section>
+
+    <footer>
+        <p>© 2025 Sheetal's PCB Predictor</p>
+    </footer>
+</body>
+</html>

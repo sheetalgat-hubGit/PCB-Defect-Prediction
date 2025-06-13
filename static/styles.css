@@ -1,0 +1,178 @@
+/* General Styles */
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    scroll-behavior: smooth;
+    background-color: #f4f4f4;
+}
+
+/* Navbar */
+.navbar {
+    display: flex;
+    justify-content: center; /* Center entire navbar content */
+    align-items: center;
+    background: #003366;
+    padding: 15px 30px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 999;
+    flex-wrap: wrap; /* handles small screens */
+    gap: 40px; /* space between logo and nav links */
+}
+
+.navbar .logo {
+    color: #fff;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.navbar nav {
+    display: flex;
+    gap: 20px;
+}
+
+.navbar nav a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s;
+    white-space: nowrap;
+}
+
+.navbar nav a:hover {
+    color: #00ccff;
+}
+
+/* Hero / Landing Page */
+.hero {
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+    color: white;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 0 20px;
+}
+
+.hero h1 {
+    font-size: 3em;
+    animation: slideIn 1.5s ease-in-out;
+}
+
+.hero p {
+    font-size: 1.4em;
+    margin-top: 10px;
+}
+
+.btn {
+    margin-top: 25px;
+    padding: 12px 24px;
+    background-color: #00ccff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #0099cc;
+}
+
+/* Form Section */
+.form-section {
+    padding: 80px 20px;
+    margin-top: 80px;
+    background-color: #ffffff;
+    text-align: center;
+}
+
+input[type=text], select, input[type=range] {
+    padding: 10px;
+    width: 80%;
+    max-width: 400px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 16px;
+}
+
+input[type=submit] {
+    background-color: #28a745;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+input[type=submit]:hover {
+    background-color: #218838;
+}
+
+/* Banner Section */
+.banner-section {
+    text-align: center;
+    background-color: #e6f2ff;
+    padding: 60px 20px;
+}
+
+.banner-img {
+    max-width: 90%;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    animation: fadeIn 2s ease-in-out;
+}
+
+/* About Section */
+.about-section {
+    padding: 80px 20px;
+    text-align: center;
+    background-color: #f8f9fa;
+}
+
+.pcb-img {
+    width: 300px;
+    margin-top: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Footer */
+footer {
+    background: #003366;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+/* Animations */
+@keyframes slideIn {
+    from {
+        transform: translateY(-30px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

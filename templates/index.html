@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PCB Quality Predictor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f0f4f8;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        .hero {
+            position: relative;
+            height: 90vh;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            animation: fadeIn 2s ease-in;
+        }
+
+        .hero-text h1 {
+            font-size: 3em;
+            color: #ffffff;
+            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6);
+        }
+
+        .hero-text p {
+            font-size: 1.3em;
+            color: #e0e0e0;
+            margin: 10px 0 20px;
+            animation: slideIn 2s ease-in;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            background: linear-gradient(to right, #1e88e5, #42a5f5);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.3s ease, background 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            background: linear-gradient(to right, #1565c0, #2196f3);
+        }
+
+        .info-section, .project-section {
+            padding: 40px 60px;
+            background: white;
+            border-radius: 15px;
+            margin: 40px auto;
+            max-width: 1000px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            animation: fadeInUp 1s ease-in;
+        }
+
+        .info-section h2, .project-section h2 {
+            color: #1e88e5;
+        }
+
+        .info-section img {
+            width: 45%;
+            border-radius: 10px;
+            margin: 10px;
+            transition: transform 0.3s ease;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .info-section img:hover {
+            transform: scale(1.03);
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #e3f2fd;
+            font-weight: 500;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0 }
+            to { opacity: 1 }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from { transform: translateY(40px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Hero Section -->
+    <section class="hero" style="background-image: url('{{ url_for('static', filename='background.jpg') }}');">
+        <div class="hero-text">
+            <h1>Predict PCB Quality with AI</h1>
+            <p>Accurate | Fast | Intelligent</p>
+            <a href="{{ url_for('predict') }}" class="btn">Start Prediction</a>
+        </div>
+    </section>
+
+    <!-- Info Section -->
+    <section class="info-section">
+        <h2>What Are PCB Defects?</h2>
+        <p>
+            PCBs (Printed Circuit Boards) are essential in all electronic devices. Defects such as broken traces, pad misalignments,
+            short circuits, or solder bridges can severely affect device performance, reliability, and safety.
+            These defects lead to increased manufacturing costs, delays, and quality issues during mass production.
+        </p>
+        <img src="https://th.bing.com/th/id/OIP.2pQ1AH_fwmMwNC36MMHLIQHaE6?w=242&h=180&c=7&r=0&o=7&dpr=1.4&pid=1.7&rm=3" alt="PCB Defect">
+        <img src="https://th.bing.com/th/id/OIP.1bb0aNOG0IgyYgtwg7x4XAHaE8?w=174&h=180&c=7&r=0&o=7&dpr=1.4&pid=1.7&rm=3" alt="PCB Inspection">
+    </section>
+
+    <!-- Project Section -->
+    <section class="project-section">
+        <h2>About This ML Project</h2>
+        <p>
+            This project uses Machine Learning to predict whether a PCB is faulty or OK based on various process parameters
+            and inspection results like acid concentration, temperature, electrical test values, and visual inspections.
+            The model is trained using real or simulated manufacturing data and applies both algorithmic prediction
+            and logical rules to increase reliability. It can help in early fault detection, saving time and reducing waste.
+        </p>
+    </section>
+
+    <footer>
+        <p>© 2025 Sheetal's PCB Predictor</p>
+    </footer>
+</body>
+</html>

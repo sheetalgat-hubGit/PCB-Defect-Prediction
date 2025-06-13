@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PCB Prediction Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background-image: url('https://th.bing.com/th/id/OIP.veI8Nio0cgGzXGvAYM_tgAHaEx?rs=1&pid=ImgDetMain');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #fff;
+            animation: fadeIn 1s ease-in;
+        }
+
+        header.navbar {
+            background-color: rgba(0, 0, 0, 0.75);
+            padding: 15px 30px;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            text-align: center;
+        }
+
+        .navbar .logo {
+            font-size: 1.6em;
+            font-weight: bold;
+            color: #ffffff;
+        }
+
+        nav {
+            margin-top: 10px;
+        }
+
+        nav a {
+            color: #ffffff;
+            text-decoration: none;
+            margin: 0 20px;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #90caf9;
+        }
+
+        .form-section {
+            background-color: rgba(0, 0, 0, 0.65);
+            margin: 80px auto;
+            padding: 40px 60px;
+            border-radius: 20px;
+            max-width: 700px;
+            text-align: center;
+            animation: fadeInUp 1s ease-in-out;
+        }
+
+        h2 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #90caf9;
+        }
+
+        .result {
+            font-size: 1.8em;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            background: linear-gradient(to right, #1e88e5, #42a5f5);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.3s ease, background 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            background: linear-gradient(to right, #1565c0, #2196f3);
+        }
+
+        .celebrate::after {
+            content: "🎉🎊 Congratulations! 🎊🎉";
+            display: block;
+            font-size: 1.4em;
+            color: #00e676;
+            margin-top: 20px;
+            animation: pulse 1s infinite alternate;
+        }
+
+        .sad {
+            animation: borderFlash 1s infinite;
+        }
+
+        .sad::after {
+            content: "😢 Please inspect the PCB!";
+            display: block;
+            font-size: 1.3em;
+            color: #ff5252;
+            margin-top: 20px;
+            animation: shake 1s infinite alternate;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            font-weight: 500;
+            margin-top: 60px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0 }
+            to { opacity: 1 }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            from { transform: scale(1); }
+            to { transform: scale(1.1); }
+        }
+
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            75% { transform: translateX(-5px); }
+            100% { transform: translateX(0); }
+        }
+
+        @keyframes borderFlash {
+            0% { box-shadow: 0 0 10px red; }
+            50% { box-shadow: 0 0 20px red; }
+            100% { box-shadow: 0 0 10px red; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="logo">PCB Predictor</div>
+        <nav>
+            <a href="{{ url_for('home') }}">Home</a>
+            <a href="{{ url_for('predict') }}">Predict Again</a>
+        </nav>
+    </header>
+
+    <section class="form-section">
+        <h2>Prediction Result</h2>
+
+        {% if 'OK PCB' in prediction %}
+            <p class="result celebrate">{{ prediction }}</p>
+            <audio autoplay>
+                <source src="https://assets.mixkit.co/sfx/preview/mixkit-winning-notification-2018.mp3" type="audio/mpeg">
+            </audio>
+            <script>
+                window.onload = function() {
+                    confetti({
+                        particleCount: 150,
+                        spread: 100,
+                        origin: { y: 0.6 }
+                    });
+                    alert("🎉 PCB is OK! Great Job!");
+                };
+            </script>
+        {% elif 'Faulty PCB' in prediction %}
+            <p class="result sad">{{ prediction }}</p>
+        {% else %}
+            <p class="result">{{ prediction }}</p>
+        {% endif %}
+
+        <a href="{{ url_for('predict') }}" class="btn">Try Another</a>
+    </section>
+
+    <footer>
+        <p>© 2025 Epitome's PCB Predictor</p>
+    </footer>
+</body>
+</html>
